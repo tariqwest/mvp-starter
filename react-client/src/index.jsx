@@ -2,14 +2,15 @@
   // Create new or auth existing user (to remember their places, and photo collections)
   // Get location of user - done
   // Place user location on google map - done
-  // Send location/google map bounds to flickr - 
-  // Receive photo options
-  // Select photos
-  // Publish selected photos
+  // Retrieve flickr photos matching location - done 
+  // Capture user selected photos - done
+  // Save user selected photos to DB -
+  // Publish selected photos to FB -
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import sampleData from './sampleData.jsx';
 import Container from './components/MapContainer.jsx';
 import List from './components/List.jsx';
 
@@ -22,11 +23,16 @@ class App extends React.Component {
         lat: null,
         lng: null
       },
-      photos: [{}, {}, {}],
+      photos: sampleData.photos.photo,
+      selectedPhotos: {}
     }
+    this.addToSelectedPhotos = this.addToSelectedPhotos.bind(this);
+    this.removeFromSelectedPhotos = this.removeFromSelectedPhotos.bind(this);
   }
 
   getUserLocation() {
+
+    console.log(this.state.photos);
 
     var options = {
       enableHighAccuracy: true,
@@ -58,6 +64,8 @@ class App extends React.Component {
         //is_commons: 'true'
       };
 
+      console.log(flickrUrl + '?' + $.param(data, true));
+
       $.ajax({
         url: flickrUrl + '?' + $.param(data, true), 
         success: (data) => {
@@ -80,6 +88,20 @@ class App extends React.Component {
 
   }
 
+  addToSelectedPhotos(photo){
+    console.log('Adding to selected photos: ', photo);
+    var selectedPhotos = this.state.selectedPhotos;
+    selectedPhotos[JSON.stringify(photo)] = photo;
+    this.setState({selectedPhotos: selectedPhotos});
+  }
+
+  removeFromSelectedPhotos(photo){
+    console.log('Removing from selected photos: ', photo);
+    var selectedPhotos = this.state.selectedPhotos;
+    delete selectedPhotos[JSON.stringify(photo)];
+    this.setState({selectedPhotos: selectedPhotos});
+  }
+
   componentDidMount() {
     this.getUserLocation();
   }
@@ -87,10 +109,19 @@ class App extends React.Component {
   render () {
     return (
       <div>
-      <Container location={this.state.location} />
-      <List items={this.state.photos} />
+        <div>
+          <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.state.location.lat},${this.state.location.lng}&markers=color:red%7Clabel:C%7C${this.state.location.lat},${this.state.location.lng}&zoom=16&size=400x400&key=AIzaSyAcEoPnIMOVBKVvD00uKpt8yJ7Spur0pUQ`}>
+          </img>
+        </div>
+        <List items={this.state.photos} addToSelectedPhotos={this.addToSelectedPhotos} removeFromSelectedPhotos={this.removeFromSelectedPhotos} />
       </div>
     )
+    // return (
+    //   <div>
+    //   <Container location={this.state.location} />
+    //   <List items={this.state.photos} />
+    //   </div>
+    // )
   }
 }
 

@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "angular": "^1.6.3",
+    "body-parser": "^1.17.1",
     "express": "^4.15.0",
     "google-maps-react": "^1.0.19",
     "jquery": "^3.1.1",
