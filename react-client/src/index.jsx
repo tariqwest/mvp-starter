@@ -1,5 +1,5 @@
 // TODO:
-  // Create new or auth existing user (to remember their places, and photo collections)
+  // Create new or auth existing user -
   // Get location of user - done
   // Place user location on google map - done
   // Retrieve flickr photos matching location - done 
@@ -59,8 +59,8 @@ class App extends React.Component {
         radius: 1,
         radius_units: 'km',
         format: 'json',
-        per_page: 20,
-        sort: 'interestingness-desc'
+        per_page: 20
+        //sort: 'interestingness-desc'
         //is_commons: 'true'
       };
 

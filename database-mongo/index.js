@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/photolater');
 
 var db = mongoose.connection;
 
@@ -11,13 +11,28 @@ db.once('open', function() {
   console.log('mongoose connected successfully');
 });
 
-var itemSchema = mongoose.Schema({
-  quantity: Number,
-  description: String
+
+// Users
+var userSchema = mongoose.Schema({
+  fb_id: String,
+  fb_token: String,
+  fb_name: String,
+  fb_email: String
 });
 
-var Item = mongoose.model('Item', itemSchema);
+var User = mongoose.model('User', userSchema);
 
+
+// Locations
+var locationSchema = mongoose.Schema({
+  lat: String,
+  lng: String
+});
+
+var Location = mongoose.model('Location', locationSchema);
+
+
+// Common methods
 var selectAll = function(callback) {
   Item.find({}, function(err, items) {
     if(err) {
@@ -28,4 +43,6 @@ var selectAll = function(callback) {
   });
 };
 
-module.exports.selectAll = selectAll;
+
+module.exports.User = User;
+module.exports.Location = Location;
