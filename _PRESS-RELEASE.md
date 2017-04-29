@@ -19,26 +19,44 @@ Once the project moves into development, the press release can be used as a touc
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
+  PHOTO LATER
+
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+
+  FOR PEOPLE WHO WANT TO ENJOY THE MOMENT, AND WORRY ABOUT PHOTOS OF IT LATER.
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
 
+  AUTOMATICALLY GET HIGH QUALITY PHOTOS OF THE PLACES YOU VISIT AND ADD THEM TO YOUR COLLECTION.
+
 ## Problem ##
   > Describe the problem your product solves.
+
+  PEOPLE OFTEN SPEND THEIR TIME TAKING MEDIOCRE PHOTOS OF EXTRAORDINARY PLACES. THIS BOTH TAKES THEM OUT OF THE EXPERIENCE OF THE EXTRAORDINARY IN FRONT OF THEM, AND GETS IN THE WAY OF OTHER PEOPLE'S ENJOYMENT.
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
 
+  'PHOTO LATER' ALLOWS YOU TO BOOKMARK A PHYSICAL PLACE THAT YOU'D LIKE A PHOTO MEMORY OF. IN THAT MOMENT, OR AT SOME FUTURE POINT, YOU CAN VIEW A CURATED, PROFESSIONAL QUALITY SET OF PHOTOS OF THAT PLACE. YOU CAN SAVE THE PHOTOS YOU LIKE TO YOUR COLLECTION, AND POST THEM TO FACEBOOK OR INSTAGRAM.
+
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+
+'WE'RE REALLY EXCITED TO HELP CUSTOMERS STAY IN THE MOMENT BY NOT PHOTOGRAPHING IT, AND REMEMBER THE PLACES THAT MATTER THROUGH A BETTER LENSE - THAT OF A GOOD PHOTOGRAPHER.'
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
 
+  ...
+
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
 
+  ...
+
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+
+  ...

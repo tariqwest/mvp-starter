@@ -1,5 +1,5 @@
 {
-  "name": "github-fetcher-fullstack-v2",
+  "name": "mvp-starter",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,12 +17,13 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
-    "express": "^4.15.0",
     "angular": "^1.6.3",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "express": "^4.15.0",
+    "google-maps-react": "^1.0.19",
     "jquery": "^3.1.1",
     "mongoose": "^4.8.6",
-    "mysql": "^2.13.0"
+    "mysql": "^2.13.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
   }
 }
