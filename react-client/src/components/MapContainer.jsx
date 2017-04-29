@@ -9,9 +9,12 @@ export class Container extends React.Component {
       return <div>Loading...</div>
     }
     return (
-      <Map google={this.props.google} zoom={14}>
-        <Marker onClick={this.onMarkerClick}
-                name={'Current location'} />
+      <Map google={this.props.google} zoom={18} center={this.props.location}>
+        <Marker 
+          onClick={this.onMarkerClick}
+          name={'Current location'}
+          position={this.props.location}
+        />
       </Map>
     )
   }

@@ -1,7 +1,7 @@
 // TODO:
   // Create new or auth existing user (to remember their places, and photo collections)
   // Get location of user - done
-  // Place user location on google map
+  // Place user location on google map - done
   // Send location/google map bounds to flickr
   // Receive photo options
   // Select photos
@@ -33,7 +33,11 @@ class App extends React.Component {
 
     var success = (pos) => {
       var crd = pos.coords;
-      this.setState('')
+      this.setState({'location': {
+          lat: crd.latitude,
+          lng: crd.longitude
+        }
+      });
       console.log('Your current position is:');
       console.log(`Latitude : ${crd.latitude}`);
       console.log(`Longitude: ${crd.longitude}`);
