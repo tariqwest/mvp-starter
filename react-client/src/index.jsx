@@ -2,7 +2,7 @@
   // Create new or auth existing user (to remember their places, and photo collections)
   // Get location of user - done
   // Place user location on google map - done
-  // Send location/google map bounds to flickr
+  // Send location/google map bounds to flickr - 
   // Receive photo options
   // Select photos
   // Publish selected photos
@@ -11,6 +11,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Container from './components/MapContainer.jsx';
+import List from './components/List.jsx';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -18,8 +20,9 @@ class App extends React.Component {
     this.state = { 
       location: { 
         lat: null,
-        lon: null
-      }
+        lng: null
+      },
+      photos: [{}, {}, {}],
     }
   }
 
@@ -38,10 +41,35 @@ class App extends React.Component {
           lng: crd.longitude
         }
       });
-      console.log('Your current position is:');
-      console.log(`Latitude : ${crd.latitude}`);
-      console.log(`Longitude: ${crd.longitude}`);
-      console.log(`More or less ${crd.accuracy} meters.`);
+
+      var flickrKey = '1c9f777eb7446f34a7261dc1a54be4b2';
+      var flickrUrl = 'https://api.flickr.com/services/rest';
+      var flickrMethod = 'flickr.photos.search';
+      var data = {
+        method: flickrMethod,
+        api_key: flickrKey,
+        lat: this.state.location.lat,
+        lon: this.state.location.lng,
+        radius: 1,
+        radius_units: 'km',
+        format: 'json',
+        per_page: 20,
+        sort: 'interestingness-desc'
+        //is_commons: 'true'
+      };
+
+      $.ajax({
+        url: flickrUrl + '?' + $.param(data, true), 
+        success: (data) => {
+          console.log('success', JSON.parse(data.split('(')[1].split(')')[0]).photos.photo);
+          this.setState({
+            photos: JSON.parse(data.split('(')[1].split(')')[0]).photos.photo
+          })
+        },
+        error: (err) => {
+          console.log('err', err);
+        }
+      });
     };
 
     var error = (err) => {
@@ -53,25 +81,15 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // $.ajax({
-    //   url: '/items', 
-    //   success: (data) => {
-    //     this.setState({
-    //       items: data
-    //     })
-    //   },
-    //   error: (err) => {
-    //     console.log('err', err);
-    //   }
-    // });
     this.getUserLocation();
   }
 
   render () {
     return (
-    <div>
-      <Container location={this.state.location} />   
-    </div>
+      <div>
+      <Container location={this.state.location} />
+      <List items={this.state.photos} />
+      </div>
     )
   }
 }
