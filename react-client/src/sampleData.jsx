@@ -1,2 +1,22 @@
-var sampleData = {"photos":{"page":1,"pages":36027,"perpage":20,"total":"720524","photo":[{"id":"33465282734","owner":"24448805@N07","secret":"4db83050c0","server":"2820","farm":3,"title":"Hobart Building - San Francisco","ispublic":1,"isfriend":0,"isfamily":0},{"id":"34265393276","owner":"63488389@N04","secret":"5c3c0fb330","server":"4188","farm":5,"title":"Moist","ispublic":1,"isfriend":0,"isfamily":0},{"id":"34254436546","owner":"21274934@N00","secret":"79f8f7ebdf","server":"4188","farm":5,"title":"Chinatown, San Francisco","ispublic":1,"isfriend":0,"isfamily":0},{"id":"34215412366","owner":"44954831@N03","secret":"6fe8803406","server":"2873","farm":3,"title":"Downtown San Francisco","ispublic":1,"isfriend":0,"isfamily":0},{"id":"34254860685","owner":"21274934@N00","secret":"3389ef7060","server":"2845","farm":3,"title":"Tenderloin, San Francisco","ispublic":1,"isfriend":0,"isfamily":0},{"id":"33844943820","owner":"30607051@N00","secret":"d9f9e4a82c","server":"2875","farm":3,"title":"park tower site","ispublic":1,"isfriend":0,"isfamily":0},{"id":"34154942496","owner":"51035555243@N01","secret":"b7e13df806","server":"2845","farm":3,"title":"I'm Giving You Up","ispublic":1,"isfriend":0,"isfamily":0},{"id":"33366613423","owner":"80318257@N06","secret":"468349aee2","server":"2857","farm":3,"title":"fianchetto","ispublic":1,"isfriend":0,"isfamily":0},{"id":"33314753194","owner":"30607051@N00","secret":"7ca4783d0e","server":"2870","farm":3,"title":"giant's spring tribute","ispublic":1,"isfriend":0,"isfamily":0},{"id":"33983866962","owner":"21274934@N00","secret":"a098d9af70","server":"2845","farm":3,"title":"Chinatown, San Francisco","ispublic":1,"isfriend":0,"isfamily":0},{"id":"34136918375","owner":"70075489@N03","secret":"8e8f934852","server":"2950","farm":3,"title":"Only in Chinatown","ispublic":1,"isfriend":0,"isfamily":0},{"id":"34037945966","owner":"51035555243@N01","secret":"d9cce646aa","server":"2841","farm":3,"title":"Folsom Street Fair","ispublic":1,"isfriend":0,"isfamily":0},{"id":"33248121053","owner":"51035555243@N01","secret":"58dd80cf2c","server":"2945","farm":3,"title":"Folsom Street Fair","ispublic":1,"isfriend":0,"isfamily":0},{"id":"34009719506","owner":"19575157@N00","secret":"35deeded4f","server":"3927","farm":4,"title":"Life on the Edge","ispublic":1,"isfriend":0,"isfamily":0},{"id":"33231096703","owner":"42074768@N08","secret":"7733c7068a","server":"2817","farm":3,"title":"Bernard Maybec","ispublic":1,"isfriend":0,"isfamily":0},{"id":"34012843045","owner":"99117152@N04","secret":"0a21725227","server":"3942","farm":4,"title":"Cable Car Terminus","ispublic":1,"isfriend":0,"isfamily":0},{"id":"33970521686","owner":"51035555243@N01","secret":"9deb9c707b","server":"3940","farm":4,"title":"Folsom Street Fair","ispublic":1,"isfriend":0,"isfamily":0},{"id":"33826810602","owner":"51035555243@N01","secret":"8b046d2d90","server":"2825","farm":3,"title":"Folsom Street Fair","ispublic":1,"isfriend":0,"isfamily":0},{"id":"33940332965","owner":"91607644@N07","secret":"746b72b140","server":"2881","farm":3,"title":"324 Battery Street","ispublic":1,"isfriend":0,"isfamily":0},{"id":"33923524195","owner":"21274934@N00","secret":"2dfc927cb0","server":"2909","farm":3,"title":"Tenderloin, San Francisco","ispublic":1,"isfriend":0,"isfamily":0}]},"stat":"ok"};
+var sampleData = {
+    "photos": {
+        "page": 1,
+        "pages": 36027,
+        "perpage": 20,
+        "total": "720524",
+        "photo": [{
+            "id": "33465282734",
+            "owner": "24448805@N07",
+            "secret": "4db83050c0",
+            "server": "2820",
+            "farm": 3,
+            "title": "Hobart Building - San Francisco",
+            "ispublic": 1,
+            "isfriend": 0,
+            "isfamily": 0
+        }]
+    },
+    "stat": "ok"
+};
+
 export default sampleData;
