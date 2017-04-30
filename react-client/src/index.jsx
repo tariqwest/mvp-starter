@@ -214,7 +214,7 @@ class App extends React.Component {
         <div>
           <div>Hi {this.state.user.name}!</div>
           <div>
-            <img style={ {objectFit: 'cover', width: '100%' } } src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.state.location.lat},${this.state.location.lng}&markers=color:red%7Clabel:C%7C${this.state.location.lat},${this.state.location.lng}&zoom=20&size=${this.state.windowHeight}x${this.state.windowWidth}&key=AIzaSyAcEoPnIMOVBKVvD00uKpt8yJ7Spur0pUQ`} />
+            <img style={ {objectFit: 'cover', width: '100%' } } src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.state.location.lat},${this.state.location.lng}&markers=color:red%7Clabel:C%7C${this.state.location.lat},${this.state.location.lng}&zoom=20&size=${this.state.windowHeight}x${this.state.windowWidth}&key=AIzaSyAcEoPnIMOVBKVvD00uKpt8yJ7Spur0pUQ&scale=2`} />
           </div>
           <a href="#" onClick={this.saveSelectedPhotos}>Save Selected Photos</a>
           <List items={this.state.photos} addToSelectedPhotos={this.addToSelectedPhotos} removeFromSelectedPhotos={this.removeFromSelectedPhotos} />
@@ -225,7 +225,7 @@ class App extends React.Component {
         <div>
           <div>Hi {this.state.user.name}!</div>
           <div>
-            <img style={ {objectFit: 'cover', width: '100%' } } src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.state.location.lat},${this.state.location.lng}&markers=color:red%7Clabel:C%7C${this.state.location.lat},${this.state.location.lng}&zoom=20&size=${this.state.windowHeight}x${this.state.windowWidth}&key=AIzaSyAcEoPnIMOVBKVvD00uKpt8yJ7Spur0pUQ`} />
+            <img style={ {objectFit: 'cover', width: '100%' } } src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.state.location.lat},${this.state.location.lng}&markers=color:red%7Clabel:C%7C${this.state.location.lat},${this.state.location.lng}&zoom=20&size=${this.state.windowHeight}x${this.state.windowWidth}&key=AIzaSyAcEoPnIMOVBKVvD00uKpt8yJ7Spur0pUQ&scale=2`} />
 
             <div>We've saved your images for this location. Post them to Facebook?</div>
 
@@ -240,7 +240,7 @@ class App extends React.Component {
 
 const Image = (props) => (
   <div>
-        <img style={ {objectFit: 'cover', height: 300, width: 300 } }  src={ 'https://farm' + props.photo.farm + '.staticflickr.com/' + props.photo.server + '/' + props.photo.id + '_' + props.photo.secret + '.jpg' }/>
+        <img style={ {objectFit: 'cover', width: '48%', float: 'left', padding: '5px', border: '1px solid #ccc' } }  src={ 'https://farm' + props.photo.farm + '.staticflickr.com/' + props.photo.server + '/' + props.photo.id + '_' + props.photo.secret + '.jpg' }/>
   </div>
 )
 
