@@ -8,7 +8,7 @@ var fbConfig = require('./fb.js');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var morgan = require('morgan');
-var isLoggedIn = require('connect-ensure-login').ensureLoggedIn;
+var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 
 
@@ -64,7 +64,7 @@ passport.deserializeUser(function(obj, cb) {
 });
 
 // middleware - required for passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
@@ -73,14 +73,20 @@ app.use(morgan('combined'));
 app.use(cookieParser());
 app.use((bodyParser).urlencoded({ extended: true }));
 
-
 // static files for react
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use('/app', ensureLoggedIn('/login'));
+app.use('/app', express.static(__dirname + '/../react-client/dist'));
 
-app.get('/login',
-  function(req, res){
-    res.render('login');
-  });
+app.get('/', ensureLoggedIn('/login'), function(req, res){
+  res.redirect('/app');
+});
+
+app.use('/login', express.static(__dirname + '/login.html'));
+
+// app.get('/login',
+//   function(req, res){
+//     //res.render('login');
+//   });
 
 app.get('/login/facebook',
   passport.authenticate('facebook'));

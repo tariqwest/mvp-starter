@@ -14,7 +14,7 @@ db.once('open', function() {
 
 // Users
 var userSchema = mongoose.Schema({
-  fb_id: String,
+  fb_id: { type: String, unique: true },
   fb_token: String,
   fb_name: String,
   fb_email: String

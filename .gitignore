@@ -1,4 +1,3 @@
-
 database-mongo/data/db/*
 node_modules
 */dist
