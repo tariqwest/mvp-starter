@@ -4,7 +4,7 @@
   // Place user location on google map - done
   // Retrieve flickr photos matching location - done 
   // Capture user selected photos - done
-  // Save user selected photos to DB -
+  // Save user selected photos to DB - done
   // Publish selected photos to FB -
 
 import React from 'react';
@@ -26,10 +26,14 @@ class App extends React.Component {
       location: { 
         lat: null,
         lng: null,
-        id: null
+        id: null,
+        photos: null,
+        saved: false
       },
       photos: sampleData.photos.photo,
-      selectedPhotos: {}
+      selectedPhotos: {},
+      windowWidth: '500', 
+      windowHeight: '500', 
     }
     this.saveLocation = this.saveLocation.bind(this);
     this.saveSelectedPhotos = this.saveSelectedPhotos.bind(this);
@@ -68,7 +72,8 @@ class App extends React.Component {
       this.setState({'location': {
           lat: crd.latitude,
           lng: crd.longitude,
-          id: null
+          id: null, 
+          photos: null
         }
       });
       this.saveLocation();
@@ -175,6 +180,13 @@ class App extends React.Component {
         contentType: 'application/json',
         success: (data) => {
           console.log('success', data);
+          this.setState({'location': {
+              lat: this.state.location.lat,
+              lng: this.state.location.lng,
+              id: this.state.location.id,
+              photos: photos
+            }
+          });
         },
         error: (err) => {
           console.log('err', err);
@@ -184,6 +196,10 @@ class App extends React.Component {
 
 
   componentDidMount() {
+    this.setState({ 
+      windowWidth: window.innerWidth,
+      windowHeight: window.innerHeight 
+    });
     this.getUser();
     this.getUserLocation();
   }
@@ -193,27 +209,39 @@ class App extends React.Component {
 
     if(this.state.photos.length < 2 || this.state.user.name === null){
       return (<div>Loading... Please give location access if requested...</div>)
-    }else{
+    }else if(!this.state.location.photos){
       return (
         <div>
           <div>Hi {this.state.user.name}!</div>
           <div>
-            <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.state.location.lat},${this.state.location.lng}&markers=color:red%7Clabel:C%7C${this.state.location.lat},${this.state.location.lng}&zoom=16&size=400x400&key=AIzaSyAcEoPnIMOVBKVvD00uKpt8yJ7Spur0pUQ`}>
-            </img>
+            <img style={ {objectFit: 'cover', width: '100%' } } src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.state.location.lat},${this.state.location.lng}&markers=color:red%7Clabel:C%7C${this.state.location.lat},${this.state.location.lng}&zoom=20&size=${this.state.windowHeight}x${this.state.windowWidth}&key=AIzaSyAcEoPnIMOVBKVvD00uKpt8yJ7Spur0pUQ`} />
           </div>
           <a href="#" onClick={this.saveSelectedPhotos}>Save Selected Photos</a>
           <List items={this.state.photos} addToSelectedPhotos={this.addToSelectedPhotos} removeFromSelectedPhotos={this.removeFromSelectedPhotos} />
         </div>
       ) 
-    }
+    }else if(this.state.location.photos){
+      return (
+        <div>
+          <div>Hi {this.state.user.name}!</div>
+          <div>
+            <img style={ {objectFit: 'cover', width: '100%' } } src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.state.location.lat},${this.state.location.lng}&markers=color:red%7Clabel:C%7C${this.state.location.lat},${this.state.location.lng}&zoom=20&size=${this.state.windowHeight}x${this.state.windowWidth}&key=AIzaSyAcEoPnIMOVBKVvD00uKpt8yJ7Spur0pUQ`} />
 
-    // return (
-    //   <div>
-    //   <Container location={this.state.location} />
-    //   <List items={this.state.photos} />
-    //   </div>
-    // )
+            <div>We've saved your images for this location. Post them to Facebook?</div>
+
+              {this.state.location.photos.map(function(photo){  return <Image photo={photo} />  })}
+
+          </div>
+        </div>
+      ) 
+    }
   }
 }
+
+const Image = (props) => (
+  <div>
+        <img style={ {objectFit: 'cover', height: 300, width: 300 } }  src={ 'https://farm' + props.photo.farm + '.staticflickr.com/' + props.photo.server + '/' + props.photo.id + '_' + props.photo.secret + '.jpg' }/>
+  </div>
+)
 
 ReactDOM.render(<App />, document.getElementById('app'));

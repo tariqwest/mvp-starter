@@ -23,7 +23,7 @@ class ListItem extends React.Component {
   render(){
     return (
       <div>
-        <img style={ {border: this.state.selected ? "1px solid red" : "1px solid black"} } onClick={this.toggleSelect} src={ 'https://farm' + this.props.item.farm + '.staticflickr.com/' + this.props.item.server + '/' + this.props.item.id + '_' + this.props.item.secret + '.jpg' }/>
+        <img style={ {border: this.state.selected ? "1px solid red" : "1px solid black", objectFit: 'cover', width: '100%' } } onClick={this.toggleSelect} src={ 'https://farm' + this.props.item.farm + '.staticflickr.com/' + this.props.item.server + '/' + this.props.item.id + '_' + this.props.item.secret + '.jpg' }/>
       </div>
     )
   }
