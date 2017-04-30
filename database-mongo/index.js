@@ -28,7 +28,9 @@ var User = mongoose.model('User', userSchema);
 // Locations
 var locationSchema = mongoose.Schema({
   lat: String,
-  lng: String
+  lng: String,
+  owner: String,
+  photos: [],
 });
 
 var Location = mongoose.model('Location', locationSchema);

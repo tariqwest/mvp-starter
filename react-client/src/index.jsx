@@ -25,11 +25,14 @@ class App extends React.Component {
       },
       location: { 
         lat: null,
-        lng: null
+        lng: null,
+        id: null
       },
       photos: sampleData.photos.photo,
       selectedPhotos: {}
     }
+    this.saveLocation = this.saveLocation.bind(this);
+    this.saveSelectedPhotos = this.saveSelectedPhotos.bind(this);
     this.addToSelectedPhotos = this.addToSelectedPhotos.bind(this);
     this.removeFromSelectedPhotos = this.removeFromSelectedPhotos.bind(this);
   }
@@ -64,7 +67,8 @@ class App extends React.Component {
       var crd = pos.coords;
       this.setState({'location': {
           lat: crd.latitude,
-          lng: crd.longitude
+          lng: crd.longitude,
+          id: null
         }
       });
       this.saveLocation();
@@ -145,6 +149,12 @@ class App extends React.Component {
         //contentType: 'application/json',
         success: (data) => {
           console.log('success', data);
+          this.setState({'location': {
+              lat: this.state.location.lat,
+              lng: this.state.location.lng,
+              id: data._id
+            }
+          });
         },
         error: (err) => {
           console.log('err', err);
@@ -153,7 +163,23 @@ class App extends React.Component {
   }
 
   saveSelectedPhotos(){
-
+    var photos = [];
+    for(var key in this.state.selectedPhotos){
+      photos.push(this.state.selectedPhotos[key]);
+    }
+    console.log('Photos to save', photos);
+    $.ajax({
+        url: '/users/'+ this.state.user.id +'/locations/' + this.state.location.id,
+        method: 'PUT',
+        data:  JSON.stringify(photos),
+        contentType: 'application/json',
+        success: (data) => {
+          console.log('success', data);
+        },
+        error: (err) => {
+          console.log('err', err);
+        }
+      });
   }
 
 
@@ -175,6 +201,7 @@ class App extends React.Component {
             <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.state.location.lat},${this.state.location.lng}&markers=color:red%7Clabel:C%7C${this.state.location.lat},${this.state.location.lng}&zoom=16&size=400x400&key=AIzaSyAcEoPnIMOVBKVvD00uKpt8yJ7Spur0pUQ`}>
             </img>
           </div>
+          <a href="#" onClick={this.saveSelectedPhotos}>Save Selected Photos</a>
           <List items={this.state.photos} addToSelectedPhotos={this.addToSelectedPhotos} removeFromSelectedPhotos={this.removeFromSelectedPhotos} />
         </div>
       ) 

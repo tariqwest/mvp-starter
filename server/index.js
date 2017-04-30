@@ -76,7 +76,11 @@ app.use(passport.session()); // persistent login sessions
 // middleware - other
 //app.use(morgan('combined'));
 app.use(cookieParser());
-app.use((bodyParser).urlencoded({ extended: true }));
+app.use(bodyParser.json())
+   .use(bodyParser.urlencoded());
+//app.use((bodyParser).urlencoded({ extended: true }));
+
+
 
 // static files for react
 app.use('/app', ensureLoggedIn('/login'));
@@ -106,10 +110,43 @@ app.get('/users/current', ensureLoggedIn('/login'), function(req, res){
   });
 });
 
-app.post('/users/:fb_id/locations', ensureLoggedIn('/login'), function(req, res){
+app.put('/users/:fb_id/locations/:location', ensureLoggedIn('/login'), function(req, res){
   console.log('** Req **', req.body, req.params);
-  res.status(200).send(req.body);
+  Location.findOne({_id: req.params.location})
+  .then(function(location){
+    console.log('** Found location **', location);
+    for(var photo of req.body){
+      location.photos.push(photo);
+    }
+    location.save()
+    .then(function(location){
+      console.log('** Saved photos **', location.photos)
+      res.status(200).send(req.body);
+    })
+    .catch( function(err){
+      console.log(err);
+    });
+  })
+  .catch(function(err){
+    console.log(err);
+  });
 });
+
+app.post('/users/:fb_id/locations', ensureLoggedIn('/login'), function(req, res){
+  var newLocation = new Location({
+    lat: req.body.location.lat, 
+    lng: req.body.location.lng,
+    owner: req.body.fb_id
+  });
+  newLocation.save()
+  .then(function(location){
+    res.status(200).send(location);
+  })
+  .catch(function(err){
+    console.log(err);
+  });
+});
+
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');
