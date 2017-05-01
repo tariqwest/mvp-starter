@@ -208,26 +208,27 @@ class App extends React.Component {
   render () {
 
     if(this.state.photos.length < 2 || this.state.user.name === null){
-      return (<div>Loading... Please give location access if requested...</div>)
+      return (<div><h1>Loading... Please give location access if requested...</h1></div>)
     }else if(!this.state.location.photos){
       return (
         <div>
-          <div>Hi {this.state.user.name}!</div>
+          <div><h1>Hi {this.state.user.name}!</h1></div>
           <div>
             <img style={ {objectFit: 'cover', width: '100%' } } src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.state.location.lat},${this.state.location.lng}&markers=color:red%7Clabel:C%7C${this.state.location.lat},${this.state.location.lng}&zoom=20&size=${this.state.windowHeight}x${this.state.windowWidth}&key=AIzaSyAcEoPnIMOVBKVvD00uKpt8yJ7Spur0pUQ&scale=2`} />
-          </div>
+          </div><h2>
           <a href="#" onClick={this.saveSelectedPhotos}>Save Selected Photos</a>
           <List items={this.state.photos} addToSelectedPhotos={this.addToSelectedPhotos} removeFromSelectedPhotos={this.removeFromSelectedPhotos} />
+          </h2>
         </div>
       ) 
     }else if(this.state.location.photos){
       return (
         <div>
-          <div>Hi {this.state.user.name}!</div>
+          <div><h1>Hi {this.state.user.name}!</h1></div>
           <div>
             <img style={ {objectFit: 'cover', width: '100%' } } src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.state.location.lat},${this.state.location.lng}&markers=color:red%7Clabel:C%7C${this.state.location.lat},${this.state.location.lng}&zoom=20&size=${this.state.windowHeight}x${this.state.windowWidth}&key=AIzaSyAcEoPnIMOVBKVvD00uKpt8yJ7Spur0pUQ&scale=2`} />
 
-            <div>We've saved your images for this location. Post them to Facebook?</div>
+            <div><h2>We've saved your images for this location. Post them to Facebook? <a href={`/users/${this.state.user.id}/locations/${this.state.location.id}/publish`}>Post to Facebook</a></h2></div>
 
               {this.state.location.photos.map(function(photo){  return <Image photo={photo} />  })}
 

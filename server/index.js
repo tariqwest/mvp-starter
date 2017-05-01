@@ -10,7 +10,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var morgan = require('morgan');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
-
+var FB = require('fb');
 
 
 var app = express();
@@ -19,7 +19,7 @@ passport.use(new fbStrategy({
     clientID: fbConfig.appId,
     clientSecret: fbConfig.appSecret,
     callbackURL: fbConfig.callbackUrl,
-    profileFields: ['id', 'email', 'first_name', 'last_name'],
+    profileFields: ['id', 'email', 'first_name', 'last_name', 'photos', 'albums'],
   },
   function(token, refreshToken, profile, done) {
     process.nextTick(function() {
@@ -95,7 +95,7 @@ app.use('/login', express.static(__dirname + '/login.html'));
 
 
 app.get('/login/facebook',
-  passport.authenticate('facebook'));
+  passport.authenticate('facebook', { scope: ['user_posts', 'user_photos', 'publish_actions'] }));
 
 app.get('/login/facebook/callback', 
   passport.authenticate('facebook', { failureRedirect: '/login' }),
@@ -109,6 +109,77 @@ app.get('/users/current', ensureLoggedIn('/login'), function(req, res){
     fb_name: req.session.passport.user.fb_name
   });
 });
+
+// Setup FB graph connection
+FB.options({
+  appId: fbConfig.appId,
+  version: 'v2.9',
+  appSecret: fbConfig.appSecret,
+});
+
+// http://localhost:3000/users/10209160608707639/locations/590765e2b6e78a37424d51d5/publish
+
+app.get('/users/:fb_id/locations/:location/publish', ensureLoggedIn('/login'), function(req, res){
+  var photos;
+  Location.findOne({_id: req.params.location})
+  .then(function(location){
+    console.log('** Found location **', location);
+    photos = location.photos;
+    User.findOne({fb_id: req.params.fb_id})
+    .then(function(user){
+      console.log('** Found user **', user);
+      FB.setAccessToken(user.fb_token);
+      FB.api('me/albums', 'post', { name: location._id }, function (fbres) {
+        if(!fbres || fbres.error) {
+          console.log('FB post error occurred', (fbres.error || 'no error returned'));
+          return;
+        }
+        console.log('Album Id: ' + fbres.id);
+        uploadCallback(fbres.id, location);
+      })
+    })
+    .catch(function(err){
+      console.log(err);
+    });
+  });
+});
+
+
+var uploadCallback = function(album_id, location, res){
+        var batch = [];
+        for(var photo of location.photos){
+          var photoUrl = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg'
+
+          FB.api('/' + album_id + '/photos', 'post', { url: photoUrl, caption: 'My vacation' }, function (res) {
+            if(!res || res.error) {
+              console.log(!res ? 'error occurred' : res.error);
+              return;
+            }
+            console.log('Post Id: ' + res.post_id);
+          });
+        }
+        // FB.api('', 'post', {
+        //     batch: batch
+        // }, function (fbres) {
+        //     //var res0;
+         
+        //     // if(!fbres || fbres.error) {
+        //     //     console.log(!fbres ? 'error occurred' : fbres.error);
+        //     //     return;
+        //     // }
+         
+        //     // res0 = JSON.parse(fbres[0].body);
+         
+        //     // if(res0.error) {
+        //     //     console.log(res0.error);
+        //     // } else {
+        //     //     console.log('Post Id: ' + res0.id);
+        //     // }
+
+        //     console.log(fbres);
+        // })
+      };
+
 
 app.put('/users/:fb_id/locations/:location', ensureLoggedIn('/login'), function(req, res){
   console.log('** Req **', req.body, req.params);
