@@ -11,7 +11,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import sampleData from './sampleData.jsx';
-import Container from './components/MapContainer.jsx';
 import List from './components/List.jsx';
 
 
