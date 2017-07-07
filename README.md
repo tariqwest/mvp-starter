@@ -1,4 +1,4 @@
-# Photo Hungry
+# Photo Later
 Memories for lazy tourists. Save a place, get a curated set of quality images that capture it through other people’s lenses.
 
 ## Features
